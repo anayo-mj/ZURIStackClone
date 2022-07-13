@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from email.policy import default
 from pathlib import Path
 from decouple import config
 
@@ -43,11 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #a 3rd party app
     'django_extensions',
+    'rest_framework',
+    'rest_framework.authtoken',
 
     #Local apps
     'accounts.apps.AccountsConfig',
     'questions.apps.QuestionsConfig',
     'common.apps.CommonConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +137,12 @@ STATICFILES_DIRS = [BASE_DIR/'static']
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    )
+}
